@@ -28,6 +28,21 @@ services:
     links:
       - devopstools-db
 
+  devopstools-frontend:
+    container_name: devopstools-frontend
+    build:
+      context: https://github.com/kilerkarol/devopstools-front-end.git
+      args:
+        - NODE_ENV=development
+        - REACT_APP_USERS_SERVICE_URL=${REACT_APP_USERS_SERVICE_URL}
+    ports:
+      - 9000:9000
+    depends_on:
+      devopstools-backend:
+        condition: service_started
+    links:
+      - devopstools-backend
+
   nginx:
     container_name: nginx
     build: ./nginx/
@@ -37,5 +52,8 @@ services:
     depends_on:
        devopstools-backend:
         condition: service_started
+       devopstools-frontend:
+        condition: service_started
     links:
       - devopstools-backend
+      - devopstools-frontend
