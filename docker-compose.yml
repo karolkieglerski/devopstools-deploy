@@ -4,7 +4,7 @@ services:
 
   devopstools-db:
     container_name: devopstools-db
-    build: https://github.com/kilerkarol/devopstools_client.git#master:db
+    build: https://github.com/kilerkarol/devopstools-back-end.git#master:db
     ports:
         - 5435:5432
     environment:
@@ -15,7 +15,7 @@ services:
 
   devopstools-backend:
     container_name: devopstools-backend
-    build: https://github.com/kilerkarol/devopstools_client.git
+    build: https://github.com/kilerkarol/devopstools-back-end.git
     environment:
       - APP_SETTINGS=devopstools.config.DevelopmentConfig
       - DATABASE_URL=postgres://postgres:postgres@devopstools-db:5432/users_dev
